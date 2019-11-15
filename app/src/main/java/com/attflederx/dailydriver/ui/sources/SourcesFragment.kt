@@ -1,4 +1,4 @@
-package com.attflederx.dailydriver.ui.send
+package com.attflederx.dailydriver.ui.sources
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,22 +10,19 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.attflederx.dailydriver.R
 
-class SendFragment : Fragment() {
+class SourcesFragment : Fragment() {
 
-    private lateinit var sendViewModel: SendViewModel
+    private lateinit var sourcesViewModel: SourcesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        sendViewModel =
-            ViewModelProviders.of(this).get(SendViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_send, container, false)
-        val textView: TextView = root.findViewById(R.id.text_send)
-        sendViewModel.text.observe(this, Observer {
-            textView.text = it
-        })
+        sourcesViewModel =
+            ViewModelProviders.of(this).get(SourcesViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_sources, container, false)
+
         return root
     }
 }

@@ -1,4 +1,4 @@
-package com.attflederx.dailydriver.ui.tools
+package com.attflederx.dailydriver.ui.topics
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,22 +10,19 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.attflederx.dailydriver.R
 
-class ToolsFragment : Fragment() {
+class TopicsFragment : Fragment() {
 
-    private lateinit var toolsViewModel: ToolsViewModel
+    private lateinit var topicsViewModel: TopicsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        toolsViewModel =
-            ViewModelProviders.of(this).get(ToolsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_tools, container, false)
-        val textView: TextView = root.findViewById(R.id.text_tools)
-        toolsViewModel.text.observe(this, Observer {
-            textView.text = it
-        })
+        topicsViewModel =
+            ViewModelProviders.of(this).get(TopicsViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_topics, container, false)
+
         return root
     }
 }
