@@ -5,4 +5,7 @@
 
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
     <dimen name="nav_header_height">128dp</dimen>
+    <dimen name="weather_icon_small_size">56dp</dimen>
+    <dimen name="activity_large_margin">32dp</dimen>
+    <dimen name="std_corner_radius">12dp</dimen>
 </resources>
