@@ -8,7 +8,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 import retrofit2.http.GET
 
-private const val OPEN_WEATHER_MAP_API_KEY = "8d16dc5b3caa5af6a15c0f120731ffad"
+private const val OPEN_WEATHER_MAP_API_KEY = "NO_KEY_4_U"
 
 private const val BASE_URL = "https://api.openweathermap.org/data/2.5/"
 
