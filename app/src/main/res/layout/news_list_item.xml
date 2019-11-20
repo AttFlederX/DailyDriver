@@ -1,83 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/home_news_background"
-    android:layout_margin="@dimen/activity_horizontal_margin">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/iv_news_image"
-        android:layout_width="0dp"
-        android:layout_height="240dp"
-        android:adjustViewBounds="false"
-        android:cropToPadding="false"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+    <data>
+        <variable
+            name="newsItem"
+            type="com.attflederx.dailydriver.domain.NewsModel" />
+        <variable
+            name="clickListener"
+            type="com.attflederx.dailydriver.ui.adapters.NewsListener" />
+    </data>
 
-    <TextView
-        android:id="@+id/tv_news_title"
-        android:layout_width="0dp"
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_news_image"
-        tools:text="@tools:sample/lorem/random" />
+        app:cardCornerRadius="@dimen/std_corner_radius"
+        app:cardElevation="@dimen/std_elevation"
+        android:layout_margin="@dimen/activity_horizontal_margin">
 
-    <TextView
-        android:id="@+id/tv_news_description"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-        app:layout_constraintEnd_toEndOf="@+id/tv_news_title"
-        app:layout_constraintStart_toStartOf="@+id/tv_news_title"
-        app:layout_constraintTop_toBottomOf="@+id/tv_news_title"
-        tools:text="@tools:sample/lorem/random" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> clickListener.onClick(newsItem)}">
 
-    <TextView
-        android:id="@+id/tv_news_source"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tv_news_title"
-        app:layout_constraintTop_toBottomOf="@+id/tv_news_description"
-        tools:text="NBC News" />
+            <ImageView
+                android:id="@+id/iv_news_image"
+                android:layout_width="0dp"
+                android:layout_height="240dp"
+                android:adjustViewBounds="false"
+                android:cropToPadding="false"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{newsItem.imageUrl}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-    <TextView
-        android:id="@+id/tv_news_posted_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_news_source"
-        app:layout_constraintStart_toEndOf="@+id/tv_news_source"
-        app:layout_constraintTop_toBottomOf="@+id/tv_news_source"
-        tools:text="3 hours ago" />
+            <TextView
+                android:id="@+id/tv_news_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="@{newsItem.title}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_news_image"
+                tools:text="@tools:sample/lorem/random" />
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:tint="@color/primaryLightTextColor"
-        app:layout_constraintBottom_toTopOf="@+id/tv_news_source"
-        app:layout_constraintEnd_toEndOf="@+id/tv_news_title"
-        app:layout_constraintTop_toBottomOf="@+id/tv_news_source"
-        app:srcCompat="@drawable/ic_share" />
+            <TextView
+                android:id="@+id/tv_news_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@{newsItem.description}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                app:layout_constraintEnd_toEndOf="@+id/tv_news_title"
+                app:layout_constraintStart_toStartOf="@+id/tv_news_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_news_title"
+                tools:text="@tools:sample/lorem/random" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tv_news_source"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="16dp"
+                android:text="@{newsItem.source}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_news_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_news_description"
+                tools:text="NBC News" />
+
+            <TextView
+                android:id="@+id/tv_news_posted_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:text="@{newsItem.timeString}"
+                app:layout_constraintBottom_toTopOf="@+id/tv_news_source"
+                app:layout_constraintStart_toEndOf="@+id/tv_news_source"
+                app:layout_constraintTop_toBottomOf="@+id/tv_news_source"
+                tools:text="3 hours ago" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:tint="@color/primaryLightTextColor"
+                app:layout_constraintBottom_toTopOf="@+id/tv_news_source"
+                app:layout_constraintEnd_toEndOf="@+id/tv_news_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_news_source"
+                app:srcCompat="@drawable/ic_share" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

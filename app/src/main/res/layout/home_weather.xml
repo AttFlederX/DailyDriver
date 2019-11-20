@@ -1,65 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/weather_info"
-    android:elevation="16dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/home_weather_background"
-    android:layout_margin="@dimen/activity_horizontal_margin">
-
-    <ImageView
-        android:id="@+id/iv_home_weather"
-        android:layout_width="@dimen/weather_icon_small_size"
-        android:layout_height="@dimen/weather_icon_small_size"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        <variable
+            name="weather"
+            type="com.attflederx.dailydriver.domain.WeatherModel" />
+        <variable
+            name="clickListener"
+            type="com.attflederx.dailydriver.ui.adapters.WeatherListener" />
+    </data>
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/weather_info"
+        android:elevation="@dimen/std_elevation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/home_weather_background"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/tv_home_temperature_location"
-        style="@style/TextAppearance.HomeWeather"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        tools:text="8*C in San Francisco"
-        app:layout_constraintStart_toEndOf="@+id/iv_home_weather"
-        app:layout_constraintTop_toTopOf="@+id/iv_home_weather" />
-
-
-    <TextView
-        android:id="@+id/tv_home_day_temperature"
-        style="@style/TextAppearance.HomeWeather"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Clear"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_home_weather"
-        app:layout_constraintStart_toStartOf="@+id/tv_home_temperature_location" />
-
-    <TextView
-        android:id="@+id/tv_home_rain_prob"
-        style="@style/TextAppearance.HomeWeather"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/activity_large_margin"
-        tools:text="9*C / 5*C"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/iv_home_weather" />
-
-    <TextView
-        android:id="@+id/tv_home_weather_condition"
-        style="@style/TextAppearance.HomeWeather"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/activity_large_margin"
-        tools:text="50% rain"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_home_weather"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:onClick="@{() -> clickListener.onClick(weather)}">
+    
+        <ImageView
+            android:id="@+id/iv_home_weather"
+            android:layout_width="@dimen/weather_icon_small_size"
+            android:layout_height="@dimen/weather_icon_small_size"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+    
+        <TextView
+            android:id="@+id/tv_home_temperature_location"
+            style="@style/TextAppearance.HomeWeather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@{weather.shortDescription}"
+            tools:text="8*C in San Francisco"
+            app:layout_constraintStart_toEndOf="@+id/iv_home_weather"
+            app:layout_constraintTop_toTopOf="@+id/iv_home_weather" />
+    
+    
+        <TextView
+            android:id="@+id/tv_home_day_temperature"
+            style="@style/TextAppearance.HomeWeather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{weather.description}"
+            tools:text="Clear"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_home_weather"
+            app:layout_constraintStart_toStartOf="@+id/tv_home_temperature_location" />
+    
+        <TextView
+            android:id="@+id/tv_home_rain_prob"
+            style="@style/TextAppearance.HomeWeather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_large_margin"
+            android:text="@{weather.dayTemperature}"
+            tools:text="9*C / 5*C"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_home_weather" />
+    
+        <TextView
+            android:id="@+id/tv_home_weather_condition"
+            style="@style/TextAppearance.HomeWeather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_large_margin"
+            android:text="@{weather.cloudsString}"
+            tools:text="50% rain"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_home_weather"
+            app:layout_constraintEnd_toEndOf="parent" />
+    
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    
+</layout>

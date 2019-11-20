@@ -8,4 +8,5 @@
     <dimen name="weather_icon_small_size">56dp</dimen>
     <dimen name="activity_large_margin">32dp</dimen>
     <dimen name="std_corner_radius">12dp</dimen>
+    <dimen name="std_elevation">16dp</dimen>
 </resources>
