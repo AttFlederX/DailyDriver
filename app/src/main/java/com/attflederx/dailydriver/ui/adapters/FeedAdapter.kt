@@ -113,8 +113,8 @@ class WeatherListener(val clickListener: () -> Unit) {
     fun onClick(item: WeatherModel) = clickListener()
 }
 
-class NewsListener(val clickListener: (id: Long) -> Unit) {
-    fun onClick(item: NewsModel) = clickListener(item.newsId)
+class NewsListener(val clickListener: (newsItem: NewsModel) -> Unit) {
+    fun onClick(item: NewsModel) = clickListener(item)
 }
 
 class FeedDiffCallback : DiffUtil.ItemCallback<FeedItem>() {

@@ -11,6 +11,6 @@ sealed class FeedItem {
     }
 
     data class NewsItem(val news: NewsModel): FeedItem() {
-        override val id = news.newsId
+        override val id = Long.MAX_VALUE
     }
 }

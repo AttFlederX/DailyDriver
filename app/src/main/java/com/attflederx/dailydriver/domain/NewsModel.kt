@@ -1,16 +1,17 @@
 package com.attflederx.dailydriver.domain
 
+import com.attflederx.dailydriver.utils.UnitsConverter
+import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class NewsModel(val newsId: Long,
-                val imageUrl: String,
+class NewsModel(val imageUrl: String,
                 val title: String,
                 val description: String,
                 val source: String,
-                val time: Date,
+                val time: DateTime,
                 val newsUrl: String) {
     val timeString: String
-        get() = "3 hours ago" // TODO
+        get() = UnitsConverter.timeIntervalToNowToString(time)// TODO
 }

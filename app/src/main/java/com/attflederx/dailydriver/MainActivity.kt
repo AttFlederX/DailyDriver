@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.attflederx.dailydriver.utils.SettingsHelper
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,6 +38,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_settings
             ), drawerLayout
         )
+
+        SettingsHelper.context = this
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)

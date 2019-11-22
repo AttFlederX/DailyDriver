@@ -51,8 +51,8 @@ fun NetworkWeatherModel.toDomainModel(): WeatherModel {
         description = weather.first().main,
         clouds = clouds.all.roundToInt(),
         location = name,
-        temp = main.temp.roundToInt(),
-        temp_min = main.temp_min.roundToInt(),
-        temp_max = main.temp_max.roundToInt()
+        temp = main.temp,
+        temp_min = main.temp_min,
+        temp_max = main.temp_max
     )
 }

@@ -1,19 +1,18 @@
 package com.attflederx.dailydriver.ui.home
 
-import android.accounts.NetworkErrorException
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.attflederx.dailydriver.domain.NewsModel
 import com.attflederx.dailydriver.domain.WeatherModel
+import com.attflederx.dailydriver.network.models.enums.NetworkStatus
+import com.attflederx.dailydriver.repository.NewsRepository
 import com.attflederx.dailydriver.repository.WeatherRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import java.io.IOException
-import java.time.Instant
-import java.time.LocalDateTime
 import java.util.*
 
 class HomeViewModel : ViewModel() {
@@ -24,34 +23,47 @@ class HomeViewModel : ViewModel() {
     private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     private val weatherRepository = WeatherRepository()
+    private val newsRepository = NewsRepository()
 
-    // mock data
-    private val _news = MutableLiveData<List<NewsModel>>().apply {
-        value = listOf(
-            NewsModel(1, "https://placeimg.com/640/480/people", "News item #1", "Description #1", "NBC News", Date(1987, 8, 11),"https://www.nbcnews.com/"),
-            NewsModel(2, "https://placeimg.com/640/480/arch", "News item #2", "Description #2", "ABC News", Date(1988, 8, 11),"https://www.abcnews.go.com/"),
-            NewsModel(3, "https://placeimg.com/640/480/tech", "News item #3", "Description #3", "CNN", Date(1989, 11, 19),"https://edition.cnn.com/"))
-    }
+    private var _networkStatus = MutableLiveData<NetworkStatus>()
+    val networkStatus: LiveData<NetworkStatus>
+        get() = _networkStatus
+
+    // data containers
+    private val _news: MutableLiveData<List<NewsModel>> = newsRepository.newsData
     val news: LiveData<List<NewsModel>> = _news
 
     private val _weather: MutableLiveData<WeatherModel> = weatherRepository.weatherData
-
-//        .apply {
-//        value = WeatherModel(Calendar.getInstance().time, 18.0, "Clear", "Miami", 19.0, 15.0, 0)
-//    }
     val weather: LiveData<WeatherModel> = _weather
 
     init {
         refreshWeather()
+        refreshNews()
     }
 
     private fun refreshWeather() {
         viewModelScope.launch {
+            _networkStatus.value = NetworkStatus.LOADING
+
             try {
                 weatherRepository.refreshWeather()
             }
             catch (nwex: IOException) {
+                _networkStatus.value = NetworkStatus.ERROR
+            }
+        }
+    }
 
+    private fun refreshNews() {
+        viewModelScope.launch {
+
+            try {
+                newsRepository.refreshNews()
+
+                _networkStatus.value = NetworkStatus.DONE
+            }
+            catch (nwex: IOException) {
+                _networkStatus.value = NetworkStatus.ERROR
             }
         }
     }
